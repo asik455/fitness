@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="APEX Fitness — Track workouts and ask your RAG fitness coach questions grounded in your training data.">
+  <meta name="theme-color" content="#09090b">
+  <title>APEX Fitness — Fitness Tracker</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="app-container" id="app">
+
+    <!-- ─── Dashboard ──────────────────────────────────────────────── -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle" id="dashboard-greeting">Good morning</p>
+      </div>
+      <div class="page-content" id="dashboard-content">
+        <!-- Rendered by dashboard.js -->
+      </div>
+    </section>
+
+    <!-- ─── RAG Coach ──────────────────────────────────────────────── -->
+    <section id="page-coach" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Coach</h1>
+        <p class="page-subtitle">RAG — ask questions about your fitness data</p>
+      </div>
+      <div class="page-content" id="coach-content">
+        <!-- Rendered by coach.js -->
+      </div>
+    </section>
+
+    <!-- ─── Workouts ───────────────────────────────────────────────── -->
+    <section id="page-workouts" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Workouts</h1>
+        <p class="page-subtitle">Log & track your training</p>
+      </div>
+      <div class="page-content" id="workouts-content">
+        <!-- Rendered by workouts.js -->
+      </div>
+    </section>
+
+    <!-- ─── Metrics ────────────────────────────────────────────────── -->
+    <section id="page-metrics" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Body Metrics</h1>
+        <p class="page-subtitle">Track your body composition</p>
+      </div>
+      <div class="page-content" id="metrics-content">
+        <!-- Rendered by metrics.js -->
+      </div>
+    </section>
+
+    <!-- ─── Goals ──────────────────────────────────────────────────── -->
+    <section id="page-goals" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Goals</h1>
+        <p class="page-subtitle">Set targets & track progress</p>
+      </div>
+      <div class="page-content" id="goals-content">
+        <!-- Rendered by goals.js -->
+      </div>
+    </section>
+
+    <!-- ─── History ────────────────────────────────────────────────── -->
+    <section id="page-history" class="page">
+      <div class="page-header">
+        <h1 class="page-title">History</h1>
+        <p class="page-subtitle">Your workout journal</p>
+      </div>
+      <div class="page-content" id="history-content">
+        <!-- Rendered by history.js -->
+      </div>
+    </section>
+
+    <!-- ─── Achievements ───────────────────────────────────────────── -->
+    <section id="page-achievements" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Achievements</h1>
+        <p class="page-subtitle">Your fitness journey milestones</p>
+      </div>
+      <div class="page-content" id="achievements-content">
+        <!-- Rendered by achievements.js -->
+      </div>
+    </section>
+
+    <!-- ─── Bottom Navigation ──────────────────────────────────────── -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-item active" data-page="dashboard" id="nav-dashboard" aria-label="Home">
+        <span class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" data-page="coach" id="nav-coach" aria-label="RAG Coach">
+        <span class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a7 7 0 0 1 7 7c0 2.5-1.2 4.7-3 6.1V19a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.9A7 7 0 0 1 5 10a7 7 0 0 1 7-7z"/>
+            <line x1="9" y1="22" x2="15" y2="22"/>
+            <line x1="10" y1="11" x2="10" y2="11.01"/>
+            <line x1="14" y1="11" x2="14" y2="11.01"/>
+          </svg>
+        </span>
+        <span class="nav-label">Coach</span>
+      </button>
+      <button class="nav-item" data-page="workouts" id="nav-workouts">
+        <span class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 6.5a2 2 0 0 1 3 0l0 11a2 2 0 0 1-3 0z"/>
+            <path d="M14.5 6.5a2 2 0 0 1 3 0l0 11a2 2 0 0 1-3 0z"/>
+            <line x1="9.5" y1="12" x2="14.5" y2="12"/>
+            <line x1="3" y1="12" x2="6.5" y2="12"/>
+            <line x1="17.5" y1="12" x2="21" y2="12"/>
+          </svg>
+        </span>
+        <span class="nav-label">Workouts</span>
+      </button>
+      <button class="nav-item" data-page="metrics" id="nav-metrics">
+        <span class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </span>
+        <span class="nav-label">Metrics</span>
+      </button>
+      <button class="nav-item" data-page="goals" id="nav-goals">
+        <span class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+        </span>
+        <span class="nav-label">Goals</span>
+      </button>
+      <button class="nav-item" data-page="history" id="nav-history">
+        <span class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </span>
+        <span class="nav-label">History</span>
+      </button>
+      <button class="nav-item" data-page="achievements" id="nav-achievements">
+        <span class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+            <path d="M4 22h16"/>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+          </svg>
+        </span>
+        <span class="nav-label">Awards</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- ─── Modals Container ─────────────────────────────────────────── -->
+  <div id="modals-container"></div>
+
+  <!-- ─── Scripts ──────────────────────────────────────────────────── -->
+  <script src="js/storage.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/rag.js"></script>
+  <script src="js/coach.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/workouts.js"></script>
+  <script src="js/metrics.js"></script>
+  <script src="js/goals.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
