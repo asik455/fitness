@@ -6,6 +6,7 @@ Run: streamlit run app.py
 from __future__ import annotations
 
 import json
+import os
 from typing import Any
 
 import streamlit as st
@@ -125,6 +126,9 @@ with st.sidebar:
 
     use_llm = st.toggle("Use LLM (OpenAI)", value=False)
     def _default_api_key() -> str:
+        env_key = os.environ.get("OPENAI_API_KEY", "")
+        if env_key:
+            return env_key
         try:
             return st.secrets["OPENAI_API_KEY"]
         except Exception:
